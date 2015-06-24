@@ -72,11 +72,12 @@ abstract public class Conta {
 	 * Altera o retorno da mensagem toString ao recuperar um objeto Conta da memoria
 	 */
 	
+	@Override
 	public String toString() {
 		return "Esse objeto é uma conta com saldo R$ " + this.saldo;
 	}
 	
-	
+	@Override
 	public boolean equals(Object obj){
 		
 		Conta outraConta = (Conta) obj;
