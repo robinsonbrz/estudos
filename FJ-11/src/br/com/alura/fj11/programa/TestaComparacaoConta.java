@@ -1,28 +1,25 @@
 package br.com.alura.fj11.programa;
 
-import br.com.alura.fj11.modelo.ContaCorrente;
 
 public class TestaComparacaoConta {
+
+	public void imprimeString(String string) {
+			StringBuilder buff = new StringBuilder(string);
+			System.out.print(buff.reverse());
+	}
+
 	public static void main(String[] args) {
-		ContaCorrente c1 = new ContaCorrente();
-		ContaCorrente c2 = new ContaCorrente();
 		
-		c1.setNome("João");
-		c1.setNumero(123321);
-		c2.setNome("Carlos");
-		c2.setNumero(123321);
+		String stringToIntIn = "762";
+		int stringToIntOut = 0;
 		
-		if (c1 == c2) {
-			System.out.println("Diferentes");
-		} else {
-			System.out.println("Iguais");
+		for (int i = 0; i < stringToIntIn.length(); i++){
+			int alg = Character.getNumericValue(stringToIntIn.charAt(i));			
+			stringToIntOut = (stringToIntOut * 10) + alg;
+			
 		}
+
+		System.out.println(stringToIntOut);
 		
-		if(!c1.equals(c2)){
-			System.out.println("Diferentes");
-		}
-		else{
-			System.out.println("Iguais");
-		}
 	}
 }
