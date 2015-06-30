@@ -1,29 +1,25 @@
 package br.com.alura.fj11.programa;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.util.Scanner;
 
 public class TesteJavaIO {
+	
 	public static void main(String[] args) throws IOException {
 
-		/**
-		 * Decorator Pattern: Lendo arquivo utilizando APIs de mais baixo nivel
-		 * a lógica é Ler um byte, converter esse byte em char, e construir a
-		 * String.
-		 */
-		InputStream in = new FileInputStream(
-				"entrada.txt");
-		InputStreamReader isreader = new InputStreamReader(in);
-		BufferedReader bfreader = new BufferedReader(isreader);
+		Scanner entrada = new Scanner(System.in);
+		PrintStream pswriter = new PrintStream(new FileOutputStream("saida.txt"));
 
-		String s = bfreader.readLine();
-		System.out.println(s);
+		System.out.println("Digite aqui sua mensagem: ");
+		
+		while (entrada.hasNextLine()) {
+			pswriter.println(entrada.nextLine());
+		}
 
-		bfreader.close();
+		pswriter.close();
+		entrada.close();
 
 	}
-
 }

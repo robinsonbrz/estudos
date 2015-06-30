@@ -1,0 +1,3 @@
+Teste
+Imprimindo uma nova string
+Em um arquivo de saida.
