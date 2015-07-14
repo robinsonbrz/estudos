@@ -3,11 +3,11 @@ package br.com.alura.fj11.modelo;
 import br.com.alura.fj11.excecao.ValorInvalidoException;
 
 abstract public class Conta {
-	private int numero;
-	private String nome;
+
+	protected int numero;
+	protected String nome;
 	protected double saldo;
 
-	
 	public String getNome() {
 		return nome;
 	}
@@ -18,6 +18,7 @@ abstract public class Conta {
 
 	/**
 	 * recupera o numero de uma conta
+	 * 
 	 * @return numero da conta
 	 */
 	public int getNumero() {
@@ -26,12 +27,14 @@ abstract public class Conta {
 
 	/**
 	 * Altera o numero de uma conta
-	 * @param numero da conta
+	 * 
+	 * @param numero
+	 *            da conta
 	 */
 	public void setNumero(int numero) {
 		this.numero = numero;
 	}
-	
+
 	/**
 	 * Esse método tem o objetivo de informar o total de dinheiro disponivel na
 	 * conta.
@@ -45,8 +48,9 @@ abstract public class Conta {
 	/**
 	 * Esse método tem o objetivo de efetuar um saque em dinheiro na conta.
 	 * 
-	 * @param Valor a ser sacado
-	 *            
+	 * @param Valor
+	 *            a ser sacado
+	 * 
 	 */
 	void saca(double valor) {
 		this.saldo -= valor;
@@ -55,7 +59,8 @@ abstract public class Conta {
 	/**
 	 * Esse método tem o objetivo de depositar um valor em dinheiro na Conta.
 	 * 
-	 * @param Valor do deposito
+	 * @param Valor
+	 *            do deposito
 	 */
 
 	public void deposita(double deposito) {
@@ -67,32 +72,46 @@ abstract public class Conta {
 			this.saldo += deposito;
 		}
 	}
-	
+
 	/**
-	 * Altera o retorno da mensagem toString ao recuperar um objeto Conta da memoria
+	 * Altera o retorno da mensagem toString ao recuperar um objeto Conta da
+	 * memoria
 	 */
-	
+
 	@Override
 	public String toString() {
-		return "Esse objeto é uma conta com saldo R$ " + this.saldo;
+		return "Esse objeto é a conta de " + this.nome + " com saldo R$ "
+				+ this.saldo;
 	}
-	
+
 	@Override
-	public boolean equals(Object obj){
-		
-		Conta outraConta = (Conta) obj;
-		
-		if(this.numero == outraConta.numero && this.nome == outraConta.nome){
-			return true;
-		}
-		
-		return false;
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + numero;
+		return result;
 	}
-	
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Conta other = (Conta) obj;
+		if (numero != other.numero)
+			return false;
+		return true;
+	}
+
 	/**
 	 * Atualiza a taxa referencial.
+	 * 
 	 * @param taxa
 	 */
 	public abstract void atualiza(double taxa);
+	
 
 }

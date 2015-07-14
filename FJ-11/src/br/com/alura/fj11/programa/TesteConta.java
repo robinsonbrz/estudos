@@ -7,7 +7,7 @@ import br.com.alura.fj11.modelo.ContaPoupanca;
 public class TesteConta {
 	public static void main(String[] args) {
 
-		ContaPoupanca cp = new ContaPoupanca();
+		ContaPoupanca cp = new ContaPoupanca(0, null);
 		ContaCorrente cc = new ContaCorrente();
 
 		AtualizadorDeContas adc = new AtualizadorDeContas(0.01);
