@@ -13,7 +13,7 @@ import com.mysql.jdbc.Statement;
 public class TestaDAO {
 	public static void main(String[] args) throws SQLException {
 
-		Produto produto = new Produto("Mesa", "Mesa de Centro");
+		Produto produto = new Produto("Geladeira", "Frost Free");
 
 		new Datasource();
 
