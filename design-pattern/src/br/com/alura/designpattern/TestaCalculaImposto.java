@@ -1,4 +1,4 @@
-package br.com.alura.designpattern.strategy;
+package br.com.alura.designpattern;
 
 public class TestaCalculaImposto {
 
