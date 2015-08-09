@@ -1,4 +1,4 @@
-package br.com.alura.designpattern;
+package br.com.alura.designpattern.strategy;
 
 public class Orcamento {
 

@@ -1,4 +1,4 @@
-package br.com.alura.designpattern;
+package br.com.alura.designpattern.strategy;
 
 public interface Imposto {
 	double calcula (Orcamento orcamento);
