@@ -14,6 +14,8 @@ public class TestaRespostaWeb {
 		RespostaXML xml = new RespostaXML(porcento);
 		RespostaCSV csv = new RespostaCSV(xml);
 		
+		csv.proximaResposta(porcento);
+		
 		xml.responde(req, c1);
 
 	}
