@@ -1,6 +1,16 @@
 package br.com.alura.designpattern;
 
-public abstract class TemplateImpostoCondicional implements Imposto {
+public abstract class TemplateImpostoCondicional extends Imposto {
+
+	// Decorator Pattern
+
+	public TemplateImpostoCondicional(Imposto outroImposto) {
+		super(outroImposto);
+	}
+
+	public TemplateImpostoCondicional() {
+
+	}
 
 	// Classes abstratas do template que define as condições
 
@@ -11,11 +21,11 @@ public abstract class TemplateImpostoCondicional implements Imposto {
 	protected abstract double minimaTaxacao(Orcamento orcamento);
 
 	// Lógica de aplicação de imposto comum entre ICPP e IKVC
-	 public double calcula(Orcamento orcamento) {
+	public double calcula(Orcamento orcamento) {
 		if (deveUsarMaximaTaxacao(orcamento)) {
-			return maximaTaxacao(orcamento);
+			return maximaTaxacao(orcamento) + calculoDoOutroImposto(orcamento);
 		} else {
-			return minimaTaxacao(orcamento);
+			return minimaTaxacao(orcamento) + calculoDoOutroImposto(orcamento);
 		}
 
 	}

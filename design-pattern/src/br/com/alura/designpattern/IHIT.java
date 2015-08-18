@@ -5,6 +5,13 @@ import java.util.List;
 
 public class IHIT extends TemplateImpostoCondicional {
 
+	public IHIT(Imposto outroImposto) {
+		super(outroImposto);
+	}
+
+	public IHIT() {
+	}
+
 	@Override
 	protected boolean deveUsarMaximaTaxacao(Orcamento orcamento) {
 		List<String> orcamentoAuxilar = new ArrayList<String>();
@@ -21,12 +28,12 @@ public class IHIT extends TemplateImpostoCondicional {
 
 	@Override
 	protected double maximaTaxacao(Orcamento orcamento) {
-		return (orcamento.getValor() * 0.13) + 100;
+		return (orcamento.getValor() * 0.13) + 100 + calculoDoOutroImposto(orcamento);
 	}
 
 	@Override
 	protected double minimaTaxacao(Orcamento orcamento) {
-		return orcamento.getValor() * (0.01 * orcamento.getItens().size());
+		return orcamento.getValor() * (0.01 * orcamento.getItens().size()) + calculoDoOutroImposto(orcamento);
 	}
 
 }
