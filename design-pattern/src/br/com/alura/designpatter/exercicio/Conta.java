@@ -7,6 +7,7 @@ public class Conta {
 	private String titular;
 	private double saldo;
 	private Calendar dataAbertura;
+	protected EstadoDeUmaConta estado;
 
 	public String getTitular() {
 		return titular;
@@ -24,11 +25,6 @@ public class Conta {
 		this.saldo = saldo;
 	}
 
-	public Conta(String titular, double saldo) {
-		this.titular = titular;
-		this.saldo = saldo;
-	}
-
 	public Calendar getDataAbertura() {
 		return dataAbertura;
 	}
@@ -36,4 +32,18 @@ public class Conta {
 	public void setDataAbertura(Calendar dataAbertura) {
 		this.dataAbertura = dataAbertura;
 	}
+
+	public void saca(double valor) {
+		estado.saca(this, valor);
+	}
+
+	public void deposita(double valor) {
+		estado.deposita(this, valor);
+	}
+
+	public Conta(String titular, double saldo) {
+		this.titular = titular;
+		this.saldo = saldo;
+	}
+
 }
