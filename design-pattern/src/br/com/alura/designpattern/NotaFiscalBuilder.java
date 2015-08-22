@@ -1,5 +1,6 @@
 package br.com.alura.designpattern;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -9,10 +10,22 @@ public class NotaFiscalBuilder {
 	private String cnpj;
 	private double impostos;
 	private double valorTotal;
-
-	private List<ItemDaNota> itens;
 	private Calendar dataAtual;
 	private String observacoes;
+
+	private List<AcaoAposGerarNota> listaAcoes;
+	private List<ItemDaNota> itens;
+
+	public NotaFiscalBuilder(List<AcaoAposGerarNota> listaAcoes) {
+		super();
+		this.listaAcoes = new ArrayList<AcaoAposGerarNota>();
+		this.listaAcoes = listaAcoes;
+		this.itens = new ArrayList<ItemDaNota>();
+	}
+
+	public void adicionaAcao(AcaoAposGerarNota acao) {
+		this.listaAcoes.add(acao);
+	}
 
 	public NotaFiscalBuilder informarRazaoSocial(String razaoSocial) {
 		this.razaoSocial = razaoSocial;
@@ -42,7 +55,13 @@ public class NotaFiscalBuilder {
 	}
 
 	public NotaFiscal emitirNotaFiscal() {
-		return new NotaFiscal(razaoSocial, cnpj, valorTotal, impostos,
+		NotaFiscal nf = new NotaFiscal(razaoSocial, cnpj, valorTotal, impostos,
 				dataAtual, observacoes, itens);
+
+		for (AcaoAposGerarNota acao : listaAcoes) {
+			acao.executa(nf);
+		}
+
+		return nf;
 	}
 }
