@@ -1,9 +1,10 @@
 package br.com.alura.aula.javaavancado;
 
-public class Cnpj {
+public class Cnpj implements Documento {
 
 	private String valor;
 
+	@Override
 	public boolean ehValido() {
 		return primeiroDigitoVerificador() == primeiroDigitoCorreto()
 				&& segundoDigitoVerificador() == segundoDigitoCorreto();
@@ -33,6 +34,7 @@ public class Cnpj {
 		return 0;
 	}
 
+	@Override
 	public String getValor() {
 		return this.valor;
 	}
@@ -47,18 +49,23 @@ public class Cnpj {
 	public int hashCode() {
 		return this.valor.hashCode();
 	}
-	
+
 	/*
-	 *Por default o java sempre criar um construtor para a classe!!!
-	 *A classe pode possuir quantos construtores for necessário!!! 
-	 * */
+	 * Por default o java sempre criar um construtor para a classe!!!A classe
+	 * pode possuir quantos construtores for necessário!!!
+	 */
 	public Cnpj(String cnpjEntrada) {
-		
-		this.valor = cnpjEntrada ;
+
+		this.valor = cnpjEntrada;
 		if (getValor() == null) {
 			throw new IllegalArgumentException("Por favor, infome um CPNJ!");
 		}
 
+	}
+
+	@Override
+	public String toString() {
+		return this.valor;
 	}
 
 }

@@ -3,34 +3,26 @@ package br.com.alura.aula.javaavancado;
 public class Divida {
 
 	private double total;
-	private String credor;
-	private String numCnpj;
-	private Cnpj cnpjCredor = new Cnpj(this.numCnpj);
+	private String nomeCredor;
+	private Documento documentoCredor;
 
-	public String getNumCnpj() {
-		return numCnpj;
+
+	public Documento getDocumentoCredor() {
+		return documentoCredor;
 	}
 
-	public void setNumCnpj(String numCnpj) {
-		this.numCnpj = numCnpj;
-	}
-
-	public Cnpj getCnpjCredor() {
-		return cnpjCredor;
-	}
-
-	public void setCnpjCredor(Cnpj cnpjCredor) {
-		this.cnpjCredor = cnpjCredor;
+	public void setDocumentoCredor(Documento documentoCredor) {
+		this.documentoCredor = documentoCredor;
 	}
 
 	private Pagamentos pagamentos = new Pagamentos();
 
-	public Pagamentos getPagamentos() {
-		return pagamentos;
+	public void registra(Pagamento pagamento) {
+		pagamentos.registra(pagamento);
 	}
 
-	public String getCredor() {
-		return this.credor;
+	public String getNomeCredor() {
+		return this.nomeCredor;
 	}
 
 	public double getTotal() {
@@ -38,11 +30,15 @@ public class Divida {
 	}
 
 	public void setCredor(String credor) {
-		this.credor = credor;
+		this.nomeCredor = credor;
 	}
 
 	public void setTotal(double total) {
 		this.total = total;
+	}
+
+	public double getValorPago() {
+		return pagamentos.getValorPago();
 	}
 
 }

@@ -2,29 +2,20 @@ package br.com.alura.aula.javaavancado;
 
 import java.util.Calendar;
 
-public class Pagamento {
+public class Pagamento{
 
 	private String nome;
 	private double valor;
-	private String numCnpj;
 	private Calendar data;
+	private Documento documentoPagador;
 
-	private Cnpj cnpjPagador = new Cnpj(this.numCnpj);
 
-	public String getNumCnpj() {
-		return numCnpj;
+	public Documento getCnpjPagador() {
+		return documentoPagador;
 	}
 
-	public void setNumCnpj(String numCnpj) {
-		this.numCnpj = numCnpj;
-	}
-
-	public Cnpj getCnpjPagador() {
-		return cnpjPagador;
-	}
-
-	public void setCnpjPagador(Cnpj cnpjPagador) {
-		this.cnpjPagador = cnpjPagador;
+	public void setCnpjPagador(Documento cnpjPagador) {
+		this.documentoPagador = cnpjPagador;
 	}
 
 	public String getNome() {
@@ -50,5 +41,6 @@ public class Pagamento {
 	public void setData(Calendar data) {
 		this.data = data;
 	}
+
 
 }
