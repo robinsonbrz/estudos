@@ -33,15 +33,11 @@ def alterar(nomes):
 		print 'Nome não existe'
 
 def procurar(nomes):
-	print 'Digite o nome que deseja procurar'
-	nome_a_procurar = raw_input()
-
-	if(nome_a_procurar in nomes):
-		indice = nomes.index(nome_a_procurar)
-		print 'Nome esta cadastrado'
-		print nomes[indice]
-	else:
-		print 'Nome não esta cadastrado'
+	print ('Digite a expressão regular')
+	regex = raw_input()
+	nomes_depois_join = ' '.join(nomes)
+	resultado = re.findall(regex, nomes_depois_join)
+	print resultado
 
 def menu():
 	nomes = []
@@ -53,6 +49,7 @@ def menu():
 		print('2 - Listar um nome')
 		print('3 - Remover um nome')
 		print('4 - Alterar nome')
+		print('5 - Procurar um nome')
 		print('0 - Sair')
 
 		escolha = raw_input()
