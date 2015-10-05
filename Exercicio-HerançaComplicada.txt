@@ -1,0 +1,54 @@
+Veja a classe Deposito. Ela tem um método que não deveria ter: getEncargos(). Na solução atual, para indicar isso, sobrescrevemos o método da classe Movimentacao e lançamos uma exceção. Isso é mau sinal!
+
+Podemos trocar a herança por composição. O primeiro passo é remover o extends Movimentacao e, no lugar, colocar um atributo do tipo Movimentacao tanto na classe Deposito como na classe Pagamento.
+
+
+    public class Pagamento {
+      private Movimentacao movimentacao = new Movimentacao();
+
+      // resto do código continua igual
+    }
+
+    public class Deposito {
+      private Movimentacao movimentacao = new Movimentacao();
+
+      // apagamos método getEncargos() e o resto continua igual
+    }
+Fica meio estranho um Deposito ter uma Movimentacao, não? Mas, se renomearmos a classe Movimentacao para DadosDeMovimentacao, começa a fazer mais sentido.
+
+
+    public class DadosDeMovimentacao {
+      private double valor;
+      private Conta conta;
+      private Calendar data;
+
+      public double getEncargos() {
+        return valor * 0.01;
+      }
+
+      // getters e setters
+    }
+
+    public class Pagamento {
+      private DadosDeMovimentacao dados = new DadosDeMovimentacao();
+
+      // resto do código continua igual
+    }
+
+    public class Deposito {
+      private DadosDeMovimentacao dados = new DadosDeMovimentacao();
+
+      // resto do código continua igual
+    }
+Agora, podemos recuperar alguns métodos que fazem sentido. Por exemplo, o método getEncargos fazia sentido para a classe Pagamento:
+
+
+    public class Pagamento {
+      private DadosDeMovimentacao dados = new DadosDeMovimentacao();
+
+      public double getEncargos() {
+        return dados.getEncargos();
+      }
+
+      // resto do código continua igual
+    }
