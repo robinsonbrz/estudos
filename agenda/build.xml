@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="agenda" default="compilar" xmlns:ivy="antlib:org.apache.ivy.ant">
+	
+	<path id="ivy.lib.path">
+		<fileset dir="ivy-lib" includes="*.jar"/>
+	</path>
+		
+	<taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path"/>	
+ 
+	<target name="atualiza-dependencias">
+		<ivy:retrieve  />
+	</target>
+	
+	
+	<!-- outras definições -->
+
+	<property file="build.properties" />
+	
+	<path id="classpath-compilacao">
+		<fileset dir="WebContent/WEB-INF/lib">
+			<include name="*.jar" />
+		</fileset>
+	</path>	
+	
+	<path id="classpath-compilacao-teste">
+		<path refid="classpath-compilacao"/>		
+		<pathelement path="${build.dir}/${classes.dir}" />
+		<fileset dir="lib-teste">
+			<include name="*.jar" />
+		</fileset>
+ 	</path>
+
+	<path id="classpath-execucao-teste">
+		<path refid="classpath-compilacao-teste" />
+		<pathelement path="${build.dir}/${classes.teste.dir}" />
+	</path>
+	
+	<target name="limpar">
+		<delete dir="${build.dir}" />
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${build.dir}/${classes.dir}" />
+		<mkdir dir="${build.dir}/${classes.teste.dir}" />
+	</target>
+	
+	<target name="copiar-recursos" depends="limpar">
+		<copy todir="${build.dir}/${classes.dir}">
+			<fileset dir="src">
+				<include name="*.xml" />
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="compilar" depends="copiar-recursos">
+		<javac destdir="${build.dir}/${classes.dir}" srcdir="src">
+			<classpath refid="classpath-compilacao"/>
+		</javac>
+	</target>
+
+	<target name="compilar-teste" depends="compilar">
+		<javac destdir="${build.dir}/${classes.teste.dir}" srcdir="src-teste">
+			<classpath refid="classpath-compilacao-teste"/>
+		</javac>
+	</target>	
+	
+	<target name="executar-teste" depends="compilar-teste">
+		<junit showoutput="true" printsummary="true">
+			<batchtest>
+				<formatter type="plain"/>
+				<fileset dir="src-teste">
+					<include name="**/*Test.java" />
+			 	</fileset>
+			</batchtest>
+			<classpath refid="classpath-execucao-teste"/>
+		</junit>
+	</target>	
+	
+	<target name="empacotar" depends="compilar">
+		<war destfile="${build.dir}/agenda.war" webxml="WebContent/WEB-INF/web.xml">
+			<classes dir="${build.dir}/${classes.dir}" />
+			<fileset dir="WebContent">
+				<exclude name="WEB-INF/classes/" />			
+			</fileset>
+		</war>
+	</target>
+	
+</project>

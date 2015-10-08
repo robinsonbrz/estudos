@@ -1,0 +1,1 @@
+create table contatos (id BIGINT NOT NULL AUTO_INCREMENT, nome VARCHAR(255), telefone VARCHAR(255), primary key (id));

@@ -1,0 +1,22 @@
+<ivy-module version="2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+
+	<info organisation="br.com.dnlr" module="aplicacao-web" />
+
+	<configurations>
+		<conf name="webapp" />
+		<conf name="teste" />
+	</configurations>
+
+	<dependencies>
+		<dependency org="junit" name="junit" rev="4.12" conf="teste->default" />
+		<dependency org="javax.servlet" name="jsp-api" rev="2.0"
+			conf="webapp->default" />
+		<dependency org="org.springframework" name="spring-core"
+			rev="4.2.1.RELEASE" conf="webapp->default" />
+
+	</dependencies>
+
+</ivy-module>

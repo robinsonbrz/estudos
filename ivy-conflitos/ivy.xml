@@ -1,0 +1,21 @@
+<ivy-module version="2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info module="agenda" organisation="br.com.caelum" />
+
+	<dependencies>
+		<dependency org="org.hibernate" name="hibernate-annotations"
+			rev="3.5.6-Final" transitive="true" conf="default">
+			<exclude name="commons-collections" />
+		</dependency>
+
+		<dependency org="org.apache.myfaces.core" name="myfaces-impl"
+			rev="2.1.6" conf="default">
+			<exclude name="commons-collections" />
+		</dependency>
+	</dependencies>
+	<conflicts>
+		<manager name="latest-revision" />
+	</conflicts>
+</ivy-module>
