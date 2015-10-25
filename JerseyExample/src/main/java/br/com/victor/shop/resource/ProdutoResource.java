@@ -17,6 +17,10 @@ import br.com.victor.shop.dao.ProdutoDAO;
 import br.com.victor.shop.model.Produto;
 import br.com.victor.shop.util.DBConnectionFactory;
 
+/*
+ * Esta classe serve para construir um recurso (resource) que será exposto na internet.
+ * Esta classe também descreve todas as operações que nosso resource suporta.
+ */
 
 @Path("produtos")
 public class ProdutoResource {
