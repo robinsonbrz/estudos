@@ -17,6 +17,8 @@ public class Produto {
 	private double preco;
 	private String decricao;
 
+	//Construtor padrão para serialização JAX-B
+	
 	Produto() {
 	}
 
