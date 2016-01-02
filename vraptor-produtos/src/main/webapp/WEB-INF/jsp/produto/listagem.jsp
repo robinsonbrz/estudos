@@ -6,12 +6,15 @@
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
       <title>Lista de Produtos!!!</title>
+      
       <link rel="stylesheet" type="text/css"
          href="../bootstrap/css/bootstrap.css">
    </head>
    <body>
       <div class="success">
+      
          <h1>Lista de Produtos</h1>
+     	 <h1>Listagem de Produtos do ${usuarioLogado.usuario.nome}</h1>
          <table class="table table-striped table-hover ">
             <thead>
                <tr class="success">

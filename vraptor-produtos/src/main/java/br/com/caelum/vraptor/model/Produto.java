@@ -4,22 +4,22 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-
 @Entity
 public class Produto {
-
-	@GeneratedValue @Id
+	
+	@Id
+	@GeneratedValue
 	private Long id;
 
 	private String nome;
-	
+
 	private Double valor;
-	
+
 	private Integer quantidade;
 
 	public Produto() {
 	}
-	
+
 	public Produto(String nome, Double valor, Integer quantidade) {
 		this.nome = nome;
 		this.valor = valor;

@@ -27,7 +27,9 @@ public class ProdutoDao {
 	}
 
 	public void remove(Produto produto) {
+		em.getTransaction().begin();
 		em.remove(busca(produto));
+		em.getTransaction().commit();
 	}
 
 	public Produto busca(Produto produto) {

@@ -22,5 +22,12 @@
             </form>
 
         </div>
+        <c:if test="${not empty errors}">
+  			<div class="alert alert-danger">
+   				 <c:forEach var="error" items="${errors}">
+        			${error.category} - ${error.message}<br />
+    			</c:forEach>
+  			</div>
+		</c:if>
     </body>
 </html>
