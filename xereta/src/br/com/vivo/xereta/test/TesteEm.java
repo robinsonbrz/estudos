@@ -1,5 +1,6 @@
 package br.com.vivo.xereta.test;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -12,16 +13,21 @@ public class TesteEm {
 
 	public static void main(String[] args) {
 		
-		EntityManager em = new JPAUtil().getEntityManager();
+		JPAUtil factory = new JPAUtil();
+		
+		EntityManager em = factory.getEntityManager();
 		
 		LogeaiDAO dao = new LogeaiDAO();
-		
-		List<Logeai> logs = dao.pesquisarPorTrackingId(em, "151000093698");
-		
-		for (Logeai logeai : logs) {
-			System.out.println(logeai.getSoatag());
+
+		List<Logeai> logs = dao.pesquisarPorTrackingId(em, "151000093698", new BigDecimal(12), null);
+
+		if (!logs.isEmpty()) {
+			for (Logeai logeai : logs) {
+				System.out.println(logeai.getSoatag());
+			}
 		}
 		
 		em.close();
+		factory.closeEntityManager();
 	}
 }

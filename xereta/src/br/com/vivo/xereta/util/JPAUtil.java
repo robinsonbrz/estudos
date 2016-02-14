@@ -1,15 +1,19 @@
 package br.com.vivo.xereta.util;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 public class JPAUtil {
 
-	private EntityManager em;
+	private EntityManagerFactory emf;
 
 	public EntityManager getEntityManager() {
 
-		em = Persistence.createEntityManagerFactory("logeai").createEntityManager();
-		return em;
+		emf = Persistence.createEntityManagerFactory("logeai");
+		return emf.createEntityManager();
+	}
+	public void closeEntityManager(){
+		emf.close();
 	}
 }
