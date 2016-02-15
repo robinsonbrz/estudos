@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<pmd version="5.3.2" timestamp="2015-10-07T23:23:11.497">
-<file name="C:\Users\Terry\workspace\blog\src\main\java\br\com\caelum\maven\App.java">
-<violation beginline="11" endline="11" begincolumn="16" endcolumn="19" rule="UnusedLocalVariable" ruleset="Unused Code" package="br.com.caelum.maven" class="App" method="main" variable="nome" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.3.2/pmd-java/rules/java/unusedcode.html#UnusedLocalVariable" priority="3">
-Avoid unused local variables such as 'nome'.
-</violation>
-</file>
-</pmd>
