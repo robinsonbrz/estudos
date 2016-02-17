@@ -6,14 +6,9 @@ import javax.persistence.Persistence;
 
 public class JPAUtil {
 
-	private EntityManagerFactory emf;
-
-	public EntityManager getEntityManager() {
-
-		emf = Persistence.createEntityManagerFactory("logeai");
+	public static EntityManager getEntityManager() {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("logeai");
 		return emf.createEntityManager();
 	}
-	public void closeEntityManager(){
-		emf.close();
-	}
+
 }

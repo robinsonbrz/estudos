@@ -22,16 +22,23 @@
 	<b:container>
 		<h1>Xereta!</h1>
 		<p>
-			Esta é uma ferramenta interna utiliza para pesquisa de Logs ou Pedidos tramitados nos mecanimos OMS ou NovoOMS.
-			<br/>
-			<br/>
-			Para utilizar:
+			Esta é uma ferramenta interna utiliza para pesquisa de Logs ou
+			Pedidos tramitados nos mecanimos OMS ou NovoOMS. <br /> <br /> Para
+			utilizar:
 			<ul>
 				<li>Log EAI:</li>
 				<p>Basta possuir o TrackingID, SOATAG.</p>
 				<p>É possivel fazer buscas, filtrando pelo DIA.</p>
 			</ul>
 		</p>
+	</b:container>
+	<b:container>
+		<p:dataTable value="#{logeai.allLogs}" var="log" rows="10">
+			<p:column>
+				<f:facet name="header">TrackingID</f:facet>
+				#{log.trackingid}
+		</p:column>
+		</p:dataTable>
 	</b:container>
 </h:body>
 </html>

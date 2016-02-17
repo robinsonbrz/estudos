@@ -1,38 +1,39 @@
-<persistence xmlns="http://java.sun.com/xml/ns/persistence"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
-   http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
-	version="1.0">
+<persistence version="1.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
 
 
 	<!-- oracle -->
 
-<!-- 	<persistence-unit name="logeai"> -->
-<!-- 		<provider>org.hibernate.ejb.HibernatePersistence</provider> -->
-<!-- 		<non-jta-data-source>java:/jdbc/LogEaiDS</non-jta-data-source> -->
-<!-- 		<class>br.com.vivo.xereta.model.Logeai</class> -->
-<!--  		<class>classes de seu projeto</class> -->
-<!-- 		<properties> -->
-<!-- 			<property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect" /> -->
-<!-- 			<property name="hibernate.format_sql" value="false" /> -->
-<!-- 			<property name="hibernate.show_sql" value="false" /> -->
-<!-- 		</properties> -->
-<!-- 	</persistence-unit> -->
-
-	<persistence-unit name="logeai">
+	<persistence-unit name="logeai" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<non-jta-data-source>java:comp/env/jdbc/logeai</non-jta-data-source>
 		<class>br.com.vivo.xereta.model.Logeai</class>
 		<properties>
-			<property name="hibernate.archive.autodetection" value="class" />
-			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" />
-			<property name="hibernate.connection.driver_class" value="oracle.jdbc.driver.OracleDriver" />
-			<property name="hibernate.connection.url" value="jdbc:oracle:thin:@10.128.194.230:1521:foeatst11" />
-			<property name="hibernate.connection.username" value="tibco_ow" />
-			<property name="hibernate.connection.password" value="tibco_ow" />
-			<property name="hibernate.show_sql" value="true"/>
-			<property name="hibernate.flushMode" value="FLUSH_AUTO" />
-			<property name="hibernate.hbm2ddl.auto" value="validate" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect" />
+			<property name="hibernate.format_sql" value="false" />
+			<property name="hibernate.show_sql" value="false" />
 		</properties>
 	</persistence-unit>
+
+
+	<!-- <persistence-unit name="logeai"> -->
+	<!-- <provider>org.hibernate.ejb.HibernatePersistence</provider> -->
+	<!-- <class>br.com.vivo.xereta.model.Logeai</class> -->
+	<!-- <properties> -->
+	<!-- <property name="hibernate.archive.autodetection" value="class" /> -->
+	<!-- <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" 
+		/> -->
+	<!-- <property name="hibernate.connection.driver_class" value="oracle.jdbc.driver.OracleDriver" 
+		/> -->
+	<!-- <property name="hibernate.connection.url" value="jdbc:oracle:thin:@10.128.194.230:1521:foeatst11" 
+		/> -->
+	<!-- <property name="hibernate.connection.username" value="tibco_ow" /> -->
+	<!-- <property name="hibernate.connection.password" value="tibco_ow" /> -->
+	<!-- <property name="hibernate.show_sql" value="true"/> -->
+	<!-- <property name="hibernate.flushMode" value="FLUSH_AUTO" /> -->
+	<!-- <property name="hibernate.hbm2ddl.auto" value="validate" /> -->
+	<!-- </properties> -->
+	<!-- </persistence-unit> -->
 
 </persistence>
