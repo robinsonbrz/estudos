@@ -19,7 +19,7 @@ public class LogeaiBean {
 	LogeaiDAO dao = new LogeaiDAO();
 	
 	public List<Logeai> getAllLogs(){
-		return dao.consultarTodosLogs(em);
+		return dao.pesquisarPorTrackingId(em, "151000093698", null, null);
 	}
 	
 	
