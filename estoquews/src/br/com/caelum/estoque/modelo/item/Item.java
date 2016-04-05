@@ -7,13 +7,16 @@ import javax.xml.bind.annotation.XmlElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Item {
 
-	@XmlElement(required = true)
+    @XmlElement(required=true)
 	private String codigo;
-	@XmlElement(required = true)
+   
+    @XmlElement(required=true)
 	private String nome;
-	@XmlElement(required = true)
+    
+    @XmlElement(required=true)
 	private String tipo;
-	@XmlElement(required = true)
+    
+    @XmlElement(required=true)
 	private int quantidade;
 
 	Item() {
@@ -55,7 +58,7 @@ public class Item {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-
+	
 	public int getQuantidade() {
 		return quantidade;
 	}
@@ -71,47 +74,47 @@ public class Item {
 
 	@Override
 	public boolean equals(Object obj) {
-		Item item = (Item) obj;
+		Item item = (Item)obj;
 		return this.codigo.equals(item.codigo);
 	}
-
+	
 	@Override
 	public String toString() {
-		return "Item [codigo=" + codigo + ", nome=" + nome + ", tipo=" + tipo
-				+ ", quantidade=" + quantidade + "]";
+		return "Item [codigo=" + codigo + ", nome=" + nome + ", tipo=" + tipo + ", quantidade="
+				+ quantidade + "]";
 	}
 
 	public static class Builder {
-
+		
 		private String codigo;
 		private String nome;
 		private String tipo;
 		private int quantidade;
-
+		
 		public Builder comNome(String nome) {
 			this.nome = nome;
 			return this;
 		}
-
+		
 		public Builder comTipo(String tipo) {
 			this.tipo = tipo;
 			return this;
 		}
-
+		
 		public Builder comCodigo(String codigo) {
 			this.codigo = codigo;
 			return this;
 		}
-
+		
 		public Builder comQuantidade(int quantidade) {
 			this.quantidade = quantidade;
 			return this;
 		}
-
+		
 		public Item build() {
-			return new Item(this.codigo, this.nome, this.tipo, this.quantidade);
+			return new Item(this.codigo,this.nome,this.tipo,this.quantidade);
 		}
-
+		
 	}
-
+	
 }
