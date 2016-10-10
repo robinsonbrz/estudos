@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:avs="http://avenuecode.com/challenge/integration/types/AvarageSalary"
+	targetNamespace="http://avenuecode.com/challenge/integration/types/AvarageSalary"
+	elementFormDefault="qualified"
+	xmlns:emp="http://avenuecode.com/challenge/integration/types/Employee">
+	<import namespace="http://avenuecode.com/challenge/integration/types/Employee"
+		schemaLocation="Employee.xsd" />
+	<element name="avarageSalary">
+		<complexType>
+			<sequence />
+		</complexType>
+	</element>
+	<element name="avarageSalaryResponse">
+		<complexType>
+			<sequence>
+				<element name="avarage" type="double" />
+			</sequence>
+		</complexType>
+	</element>
+	<element name="Employees">
+		<complexType>
+			<sequence>
+				<element name="Employee" type="emp:Employee" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+
+</schema>

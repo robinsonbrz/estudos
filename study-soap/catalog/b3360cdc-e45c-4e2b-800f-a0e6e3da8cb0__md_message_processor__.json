@@ -1,0 +1,16 @@
+{
+    "inputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "#_custom_mule_metadata_type_#",
+            "typeId": "avarage"
+        }
+    },
+    "outputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "#_custom_mule_metadata_type_#",
+            "typeId": "avarageSalary"
+        }
+    },
+    "id": "b3360cdc-e45c-4e2b-800f-a0e6e3da8cb0",
+    "version": "5.2.0.0"
+}

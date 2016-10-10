@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:emp="http://avenuecode.com/challenge/integration/types/Employee"
+	targetNamespace="http://avenuecode.com/challenge/integration/types/Employee"
+	elementFormDefault="qualified">
+	<complexType name="Employee">
+		<sequence>
+			<element name="id" type="int" />
+			<element name="firstName" type="string" minOccurs="0"/>
+			<element name="lastName" type="string" minOccurs="0"/>
+			<element name="salary" type="decimal" minOccurs="0"/>
+		</sequence>
+	</complexType>
+</schema>

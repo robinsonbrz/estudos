@@ -1,0 +1,11 @@
+{
+    "inputMessageMetadata": {},
+    "outputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "#_custom_mule_metadata_type_#",
+            "typeId": "bonusEmployee"
+        }
+    },
+    "id": "ee1ed066-b81b-4a37-980a-0fdf3ad7addf",
+    "version": "5.2.0.0"
+}
