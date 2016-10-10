@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://avenuecode.com/challenge/integration/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="NewWSDLFile"
+	targetNamespace="http://avenuecode.com/challenge/integration/"
+	xmlns:avs="http://avenuecode.com/challenge/integration/types/AvarageSalary"
+	xmlns:emp="http://avenuecode.com/challenge/integration/types/EmployeeBonus">
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import
+				namespace="http://avenuecode.com/challenge/integration/types/AvarageSalary"
+				schemaLocation="avarageSalary.xsd">
+			</xsd:import>
+			<xsd:import
+				namespace="http://avenuecode.com/challenge/integration/types/EmployeeBonus"
+				schemaLocation="employeeBonus.xsd">
+			</xsd:import>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="avarageSalaryRequest">
+		<wsdl:part name="avaragySalary" element="avs:avarageSalary"/>
+	</wsdl:message>
+	<wsdl:message name="avarageSalaryResponse">
+		<wsdl:part name="avarageSalaryResponse" element="avs:avarageSalaryResponse"/>
+	</wsdl:message>
+	<wsdl:message name="employeeBonusRequest">
+		<wsdl:part name="employeeBonusRequest" element="emp:employeeBonus">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="employeeBonusResponse">
+		<wsdl:part name="employeeBonusResponse" element="emp:employeeBonusResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="EmployeeWS">
+		<wsdl:operation name="avarageSalary">
+			<wsdl:input message="tns:avarageSalaryRequest" />
+			<wsdl:output message="tns:avarageSalaryResponse" />
+		</wsdl:operation>		<wsdl:operation name="employeeBonus">			<wsdl:input message="tns:employeeBonusRequest"></wsdl:input>			<wsdl:output message="tns:employeeBonusResponse"></wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="EmployeeWSPortBinding" type="tns:EmployeeWS">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="avarageSalary">
+			<soap:operation
+				soapAction="http://avenuecode.com/challenge/integration/avarageSalary" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="employeeBonus">
+			<soap:operation
+				soapAction="http://avenuecode.com/challenge/integration/employeeBonus" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="EmployeeWS">
+		<wsdl:port binding="tns:EmployeeWSPortBinding" name="EmployeeWSPort">
+			<soap:address location="http://www.example.org/" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

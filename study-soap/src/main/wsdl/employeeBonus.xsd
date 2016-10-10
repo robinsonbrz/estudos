@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema elementFormDefault="qualified"
+	targetNamespace="http://avenuecode.com/challenge/integration/types/EmployeeBonus"
+	xmlns="http://www.w3.org/2001/XMLSchema" xmlns:bon="http://avenuecode.com/challenge/integration/types/EmployeeBonus"
+	xmlns:emp="http://avenuecode.com/challenge/integration/types/Employee">
+	<import namespace="http://avenuecode.com/challenge/integration/types/Employee"
+		schemaLocation="Employee.xsd" />
+	
+	<element name="employeeBonus">
+		<complexType>
+			<sequence>
+				<element name="employee" type="emp:Employee" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="EmployeeResponse">
+		<complexType>
+			<sequence>
+				<element name="Employee" type="emp:Employee" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="employeeBonusResponse">
+		<complexType>
+			<sequence>
+				<element minOccurs="0" name="employeeBonus" type="double" />
+			</sequence>
+		</complexType>
+	</element>
+
+</schema>

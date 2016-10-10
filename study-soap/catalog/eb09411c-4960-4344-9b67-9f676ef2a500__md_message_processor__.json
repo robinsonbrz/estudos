@@ -1,0 +1,13 @@
+{
+    "inputMessageMetadata": {},
+    "outputMessageMetadata": {
+        "flowVariables": {
+            "newSalary": {
+                "connectorName": "#_custom_mule_metadata_type_#",
+                "typeId": "salary"
+            }
+        }
+    },
+    "id": "eb09411c-4960-4344-9b67-9f676ef2a500",
+    "version": "5.2.0.0"
+}

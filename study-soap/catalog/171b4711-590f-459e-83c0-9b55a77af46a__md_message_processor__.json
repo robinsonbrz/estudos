@@ -1,0 +1,13 @@
+{
+    "inputMessageMetadata": {},
+    "outputMessageMetadata": {
+        "flowVariables": {
+            "avarage": {
+                "connectorName": "#_custom_mule_metadata_type_#",
+                "typeId": "avarageSalary"
+            }
+        }
+    },
+    "id": "171b4711-590f-459e-83c0-9b55a77af46a",
+    "version": "5.2.0.0"
+}

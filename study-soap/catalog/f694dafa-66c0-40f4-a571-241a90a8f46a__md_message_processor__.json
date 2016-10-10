@@ -1,0 +1,13 @@
+{
+    "inputMessageMetadata": {},
+    "outputMessageMetadata": {
+        "flowVariables": {
+            "employee_id": {
+                "connectorName": "#_custom_mule_metadata_type_#",
+                "typeId": "employeeId"
+            }
+        }
+    },
+    "id": "f694dafa-66c0-40f4-a571-241a90a8f46a",
+    "version": "5.2.0.0"
+}

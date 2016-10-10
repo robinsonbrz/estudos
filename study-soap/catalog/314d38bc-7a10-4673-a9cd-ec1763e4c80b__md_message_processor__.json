@@ -1,0 +1,16 @@
+{
+    "inputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "#_custom_mule_metadata_type_#",
+            "typeId": "avarage"
+        }
+    },
+    "outputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "#_custom_mule_metadata_type_#",
+            "typeId": "avarageResponse"
+        }
+    },
+    "id": "314d38bc-7a10-4673-a9cd-ec1763e4c80b",
+    "version": "5.2.0.0"
+}

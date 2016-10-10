@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking"
+	xmlns:vm="http://www.mulesoft.org/schema/mule/vm" xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw"
+	xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:mulexml="http://www.mulesoft.org/schema/mule/xml"
+	xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/cxf http://www.mulesoft.org/schema/mule/cxf/current/mule-cxf.xsd
+http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd">
+	<http:listener-config name="HTTP_Listener_3301"
+		host="localhost" port="3301" doc:name="HTTP Listener Configuration" />
+	<db:generic-config name="Generic_Database_Configuration"
+		url="jdbc:h2:mem:test;INIT=RUNSCRIPT FROM 'classpath:create.sql'"
+		driverClassName="org.h2.Driver" doc:name="Generic Database Configuration" />
+	<mulexml:jaxb-context name="JAXB_AvarageContext"
+		packageNames="com.terry.study.types.avaragesalary" doc:name="JAXB Context" />
+	<spring:beans>
+		<spring:bean name="calculator" class="com.terry.study.util.Calculator"
+			id="Bean" />
+	</spring:beans>
+
+	<mulexml:namespace-manager
+		includeConfigNamespaces="true">
+		<mulexml:namespace prefix="emp"
+			uri="http://avenuecode.com/challenge/integration/types/EmployeeBonus" />
+		<mulexml:namespace prefix="emp1"
+			uri="http://avenuecode.com/challenge/integration/types/Employee" />
+		<mulexml:namespace prefix="ns1"
+			uri="http://avenuecode.com/challenge/integration/types/EmployeeBonus" />
+	</mulexml:namespace-manager>
+	<mulexml:jaxb-context name="JAXB_EmployeeBonusContext"
+		packageNames="com.terry.study.types.employeebonus" doc:name="JAXB Context" />
+
+	<flow name="study-soapFlow">
+		<http:listener config-ref="HTTP_Listener_3301" path="study"
+			doc:name="HTTP" />
+		<cxf:proxy-service namespace="http://avenuecode.com/challenge/integration/"
+			service="EmployeeWS" payload="body" wsdlLocation="src\main\wsdl\EmployeeWS.wsdl"
+			doc:name="CXF" />
+		<mulexml:dom-to-xml-transformer
+			doc:name="DOM to XML" />
+		<logger message="#[flowVars['cxf_operation'].localPart]" level="TRACE"
+			doc:name="Logger" />
+		<set-variable variableName="operation"
+			value="#[flowVars['cxf_operation'].localPart]" doc:name="Set Operation" />
+		<choice doc:name="Choice">
+			<when expression="#[flowVars.operation == 'employeeBonus']">
+				<flow-ref name="bonusFlow" doc:name="bonusFlow" />
+			</when>
+			<otherwise>
+				<flow-ref name="avarageFlow" doc:name="avarageFlow" />
+			</otherwise>
+		</choice>
+	</flow>
+	<flow name="avarageFlow">
+		<db:select config-ref="Generic_Database_Configuration"
+			doc:name="Database">
+			<db:parameterized-query><![CDATA[select * from employees;]]></db:parameterized-query>
+		</db:select>
+		<dw:transform-message metadata:id="e6e34b35-aab0-4857-98e5-d604bb68de3d"
+			doc:name="Transform Message">
+			<dw:set-payload><![CDATA[%dw 1.0
+%output application/xml
+%namespace ns0 http://avenuecode.com/challenge/integration/types/AvarageSalary
+%namespace ns1 http://avenuecode.com/challenge/integration/types/Employee
+---
+{
+	ns0#Employees: {
+		(payload map ((payload01 , indexOfPayload01) -> {
+			ns0#Employee: {
+				ns1#id: payload01.ID,
+				ns1#firstName: payload01.FIRST_NAME,
+				ns1#lastName: payload01.LAST_NAME,
+				ns1#salary: payload01.SALARY
+			}
+		}))
+	}
+}]]></dw:set-payload>
+		</dw:transform-message>
+		<mulexml:jaxb-xml-to-object-transformer
+			returnClass="com.terry.study.types.avaragesalary.Employees"
+			jaxbContext-ref="JAXB_EmployeeBonusContext" doc:name="XML to JAXB Object" />
+		<invoke name="avarageSalary" object-ref="calculator" method="avarageSalary"
+			methodArguments="#[payload]" methodArgumentTypes="com.terry.study.types.avaragesalary.Employees"
+			doc:name="avarageSalary" />
+		<mulexml:dom-to-xml-transformer
+			doc:name="DOM to XML" />
+		<dw:transform-message metadata:id="eb0c1260-f686-485e-93ab-50eff1c3e245"
+			doc:name="Transform Message">
+			<dw:input-payload mimeType="application/java" />
+			<dw:set-payload><![CDATA[%dw 1.0
+%output application/xml
+%namespace ns0 http://avenuecode.com/challenge/integration/types/AvarageSalary
+---
+{
+	ns0#avarageSalaryResponse: {
+		ns0#avarage: payload
+	}
+}]]></dw:set-payload>
+		</dw:transform-message>
+		<logger message="#[payload]" level="INFO"
+			metadata:id="9358f407-a603-48db-ab57-ec7f89e6e9da" doc:name="Logger" />
+	</flow>
+	<flow name="bonusFlow">
+		<set-variable variableName="employee_id"
+			value="#[xpath3('emp:employeeBonus/emp:employee/emp1:id')]"
+			metadata:id="f694dafa-66c0-40f4-a571-241a90a8f46a" doc:name="Variable" />
+		<db:select config-ref="Generic_Database_Configuration"
+			doc:name="Database">
+			<db:parameterized-query><![CDATA[select * from employees where id = #[flowVars.employee_id];]]></db:parameterized-query>
+		</db:select>
+		<dw:transform-message metadata:id="48e8236f-09cb-4195-b53a-c41c9af34447"
+			doc:name="Transform Message">
+			<dw:set-payload><![CDATA[%dw 1.0
+%output application/xml
+%namespace ns0 http://avenuecode.com/challenge/integration/types/EmployeeBonus
+%namespace ns1 http://avenuecode.com/challenge/integration/types/Employee
+---
+{
+	ns0#EmployeeResponse: {
+		(payload map ((payload01 , indexOfPayload01) -> {
+			ns0#Employee: {
+				ns1#id: payload01.ID,
+				ns1#firstName: payload01.FIRST_NAME,
+				ns1#lastName: payload01.LAST_NAME,
+				ns1#salary: payload01.SALARY
+		}
+		}))
+	}
+}]]></dw:set-payload>
+		</dw:transform-message>
+		<mulexml:jaxb-xml-to-object-transformer
+			returnClass="com.terry.study.types.employeebonus.EmployeeResponse"
+			jaxbContext-ref="JAXB_EmployeeBonusContext" doc:name="XML to JAXB Object" />
+		<custom-transformer
+			class="com.terry.study.types.transformer.BonusEmployeeTransformer"
+			doc:name="Java" />
+		<mulexml:jaxb-object-to-xml-transformer
+			jaxbContext-ref="JAXB_EmployeeBonusContext" doc:name="JAXB Object to XML" />
+        <set-variable variableName="newSalary" value="#[xpath3('ns2:employeeBonusResponse/ns2:employeeBonus')]" metadata:id="eb09411c-4960-4344-9b67-9f676ef2a500" doc:name="Variable"/>
+        <dw:transform-message metadata:id="f378ce3c-0083-41c9-93a2-7a32740081a4" doc:name="Transform Message">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/xml
+%namespace ns0 http://avenuecode.com/challenge/integration/types/EmployeeBonus
+---
+{
+	ns0#employeeBonusResponse: {
+		ns0#employeeBonus: flowVars.newSalary
+	}
+}]]></dw:set-payload>
+        </dw:transform-message>
+		<logger message="#[payload]" level="INFO" doc:name="Logger"
+			metadata:id="377beb56-3e0e-4660-bb45-4592a963a971">
+		</logger>
+	</flow>
+
+</mule>
