@@ -22,7 +22,8 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 		url="jdbc:h2:mem:test;INIT=RUNSCRIPT FROM 'classpath:create.sql'"
 		driverClassName="org.h2.Driver" doc:name="Generic Database Configuration" />
 	<mulexml:jaxb-context name="JAXB_AvarageContext"
-		packageNames="com.terry.study.types.avaragesalary" doc:name="JAXB Context" />
+		packageNames="com.terry.study.types.avaragesalary:com.terry.study.types.employeebonus"
+		doc:name="JAXB Context" />
 	<spring:beans>
 		<spring:bean name="calculator" class="com.terry.study.util.Calculator"
 			id="Bean" />
@@ -34,11 +35,7 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 			uri="http://avenuecode.com/challenge/integration/types/EmployeeBonus" />
 		<mulexml:namespace prefix="emp1"
 			uri="http://avenuecode.com/challenge/integration/types/Employee" />
-		<mulexml:namespace prefix="ns1"
-			uri="http://avenuecode.com/challenge/integration/types/EmployeeBonus" />
 	</mulexml:namespace-manager>
-	<mulexml:jaxb-context name="JAXB_EmployeeBonusContext"
-		packageNames="com.terry.study.types.employeebonus" doc:name="JAXB Context" />
 
 	<flow name="study-soapFlow">
 		<http:listener config-ref="HTTP_Listener_3301" path="study"
@@ -88,7 +85,7 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 		</dw:transform-message>
 		<mulexml:jaxb-xml-to-object-transformer
 			returnClass="com.terry.study.types.avaragesalary.Employees"
-			jaxbContext-ref="JAXB_EmployeeBonusContext" doc:name="XML to JAXB Object" />
+			jaxbContext-ref="JAXB_AvarageContext" doc:name="XML to JAXB Object" />
 		<invoke name="avarageSalary" object-ref="calculator" method="avarageSalary"
 			methodArguments="#[payload]" methodArgumentTypes="com.terry.study.types.avaragesalary.Employees"
 			doc:name="avarageSalary" />
@@ -120,19 +117,20 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 		</db:select>
 		<dw:transform-message metadata:id="48e8236f-09cb-4195-b53a-c41c9af34447"
 			doc:name="Transform Message">
+			<dw:input-payload doc:sample="sample_data\list_map_1.dwl" />
 			<dw:set-payload><![CDATA[%dw 1.0
 %output application/xml
-%namespace ns0 http://avenuecode.com/challenge/integration/types/EmployeeBonus
-%namespace ns1 http://avenuecode.com/challenge/integration/types/Employee
+%namespace emp http://avenuecode.com/challenge/integration/types/EmployeeBonus
+%namespace emp1 http://avenuecode.com/challenge/integration/types/Employee
 ---
 {
-	ns0#EmployeeResponse: {
+	emp#EmployeeResponse: {
 		(payload map ((payload01 , indexOfPayload01) -> {
-			ns0#Employee: {
-				ns1#id: payload01.ID,
-				ns1#firstName: payload01.FIRST_NAME,
-				ns1#lastName: payload01.LAST_NAME,
-				ns1#salary: payload01.SALARY
+			emp#Employee: {
+				emp1#id: payload01.ID,
+				emp1#firstName: payload01.FIRST_NAME,
+				emp1#lastName: payload01.LAST_NAME,
+				emp1#salary: payload01.SALARY
 		}
 		}))
 	}
@@ -140,27 +138,27 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 		</dw:transform-message>
 		<mulexml:jaxb-xml-to-object-transformer
 			returnClass="com.terry.study.types.employeebonus.EmployeeResponse"
-			jaxbContext-ref="JAXB_EmployeeBonusContext" doc:name="XML to JAXB Object" />
+			jaxbContext-ref="JAXB_AvarageContext" doc:name="XML to JAXB Object" />
 		<custom-transformer
 			class="com.terry.study.types.transformer.BonusEmployeeTransformer"
 			doc:name="Java" />
 		<mulexml:jaxb-object-to-xml-transformer
-			jaxbContext-ref="JAXB_EmployeeBonusContext" doc:name="JAXB Object to XML" />
-        <set-variable variableName="newSalary" value="#[xpath3('ns2:employeeBonusResponse/ns2:employeeBonus')]" metadata:id="eb09411c-4960-4344-9b67-9f676ef2a500" doc:name="Variable"/>
-        <dw:transform-message metadata:id="f378ce3c-0083-41c9-93a2-7a32740081a4" doc:name="Transform Message">
-            <dw:set-payload><![CDATA[%dw 1.0
+			jaxbContext-ref="JAXB_AvarageContext" metadata:id="9cc613cd-cece-42b3-abc0-f361b3d8a814"
+			doc:name="JAXB Object to XML" />
+		<logger message="#[payload]" level="INFO" doc:name="Logger" />
+		<dw:transform-message metadata:id="3d7a79dd-e0fb-4592-b4e1-8e4ae0f94a38"
+			doc:name="Transform Message">
+			<dw:set-payload><![CDATA[%dw 1.0
 %output application/xml
 %namespace ns0 http://avenuecode.com/challenge/integration/types/EmployeeBonus
 ---
 {
 	ns0#employeeBonusResponse: {
-		ns0#employeeBonus: flowVars.newSalary
+		ns0#employeeBonus: payload.ns0#employeeBonusResponse.ns0#employeeBonus
 	}
 }]]></dw:set-payload>
-        </dw:transform-message>
-		<logger message="#[payload]" level="INFO" doc:name="Logger"
-			metadata:id="377beb56-3e0e-4660-bb45-4592a963a971">
-		</logger>
+		</dw:transform-message>
+
 	</flow>
 
 </mule>
