@@ -1,0 +1,11 @@
+{
+    "inputMessageMetadata": {},
+    "outputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "#_custom_mule_metadata_type_#",
+            "typeId": "Success_SOAP_Response"
+        }
+    },
+    "id": "157e7f05-7e47-4ca3-9fa5-2733b2c63828",
+    "version": "5.2.0.0"
+}

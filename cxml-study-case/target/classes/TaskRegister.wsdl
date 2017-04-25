@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tr="http://study.com/TaskRegister" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="TaskRegister"
+	targetNamespace="http://study.com/TaskRegister">
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="http://study.com/TaskRegister"
+				schemaLocation="TaskRegister.xsd">
+			</xsd:import>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="TaskRegisterServiceRequest">
+		<wsdl:part element="tr:taskRegisterRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="TaskRegisterServiceResponse">
+		<wsdl:part element="tr:taskRegisterResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:portType name="TaskRegister">
+		<wsdl:operation name="TaskRegisterService">
+			<wsdl:input message="tr:TaskRegisterServiceRequest" />
+			<wsdl:output message="tr:TaskRegisterServiceResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="TaskRegisterSOAP" type="tr:TaskRegister">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="TaskRegisterService">
+			<soap:operation soapAction="http://study.com/TaskRegister/TaskRegister" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="TaskRegister">
+		<wsdl:port binding="tr:TaskRegisterSOAP" name="TaskRegisterSOAP">
+			<soap:address location="http://localhost:8081/task" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

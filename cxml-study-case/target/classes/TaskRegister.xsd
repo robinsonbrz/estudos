@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://study.com/TaskRegister"
+	xmlns:tr="http://study.com/TaskRegister"
+	elementFormDefault="qualified">
+
+
+	<xsd:complexType name="TaskEntity">
+		<xsd:sequence>
+			<xsd:element name="taskName" type="xsd:string" />
+			<xsd:element name="taskDescription" type="xsd:string" />
+			<xsd:element name="targetDate" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ResponseMessage">
+		<xsd:sequence>
+			<xsd:element name="code" type="xsd:int" />
+			<xsd:element name="Description" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="Task">
+		<xsd:sequence>
+			<xsd:element name="Task" type="tr:TaskEntity"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:element name="taskRegisterRequest" type="tr:Task"/>
+	<xsd:element name="taskRegisterResponse" type="tr:ResponseMessage" />
+
+</xsd:schema>

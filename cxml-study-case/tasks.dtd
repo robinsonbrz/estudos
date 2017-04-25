@@ -1,0 +1,8 @@
+<!ENTITY AUTHOR "Victor Felipe">
+<!ENTITY COMPANY "Self Study">
+
+<!ELEMENT Task (Name, Description, Target)>
+<!ELEMENT Name (#PCDATA)>
+<!ELEMENT Description (#PCDATA)>
+<!ELEMENT Target (#PCDATA)>
+

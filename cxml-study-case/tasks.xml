@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Task
+  SYSTEM "task.dtd">
+<Task>
+   <Name>Teste</Name>
+   <Description>Description Teste</Description>
+   <Target>21-MAR-22</Target>
+</Task>
